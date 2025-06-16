@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tamil Inscription Recognizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a3aff;
+            margin-bottom: 2rem;
+        }
+
+        .input-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="file"] {
+            border: 2px dashed #aaa;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: #fafafa;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 0.6rem 1.5rem;
+            background-color: #4a3aff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #372bd3;
+        }
+
+        .output-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-left: 4px solid #4a3aff;
+            background-color: #f9f9ff;
+            border-radius: 8px;
+        }
+
+        .output-box strong {
+            color: #222;
+        }
+
+        audio {
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📝 TAMIL INSCRIPTION RECOGNITION</h2>
+
+        <div class="input-box">
+            <input type="file" id="imageInput" accept="image/*">
+            <button onclick="uploadImage()">Recognize</button>
+        </div>
+
+        <div class="output-box">
+            <strong>🈳 Tamil Text:</strong>
+            <p id="tamilText">–</p>
+        </div>
+
+        <div class="output-box">
+            <strong>🌐 English Translation:</strong>
+            <p id="englishText">–</p>
+        </div>
+
+        <div class="output-box">
+            <strong>🔊 Audio:</strong>
+            <audio controls id="Audio"></audio>
+        </div>
+
+        <div class="footer">
+            © 2025 Tamil OCR Project
+        </div>
+    </div>
+
+    <script>
+        async function uploadImage() {
+            const input = document.getElementById('imageInput');
+            const file = input.files[0];
+            if (!file) return alert("Please upload an image.");
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            const res = await fetch("/recognize", { method: "POST", body: formData });
+            const data = await res.json();
+
+            document.getElementById("tamilText").textContent = data.tamil_text;
+            document.getElementById("englishText").textContent = data.english_text;
+            document.getElementById("Audio").src = data.audio;
+        }
+    </script>
+</body>
+</html>
