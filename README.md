@@ -44,3 +44,5 @@ and provides **text-to-speech (TTS)** output for both Tamil and English.
 - `utils/` - Helper scripts for segmentation, translation, TTS
 
 
+## 🎥 Demo Video
+[Click here to watch the demo](https://drive.google.com/file/d/1z_NvQ5qR9c0IuP_2A5FmQDvtLpM2c0LC/view?usp=sharing)
