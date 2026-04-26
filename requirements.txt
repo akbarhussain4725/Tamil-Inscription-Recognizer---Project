@@ -1,0 +1,6 @@
+flask
+numpy
+opencv-python
+tensorflow==2.15.0
+googletrans==4.0.0-rc1
+gTTS
